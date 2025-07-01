@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wordle — Apple Style</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="wordle-container">
+    <h1 class="app-title">Wordle</h1>
+    <div id="wordle-board" aria-label="Game board"></div>
+
+    <div id="virtual-keyboard" class="keyboard" aria-label="Virtual Keyboard"></div>
+
+    <div class="input-controls">
+      <input type="text" id="wordle-input" maxlength="5" autocomplete="off" placeholder="Type your guess..." />
+      <button id="wordle-submit" class="btn">Guess</button>
+    </div>
+
+    <section class="leaderboard">
+      <h2>Leaderboard</h2>
+      <ol id="leaderboard-list"></ol>
+    </section>
+  </main>
+
+  <script src="game.js"></script>
+</body>
+</html>
