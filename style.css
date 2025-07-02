@@ -1,95 +1,227 @@
 :root {
-  --bg: #f9f9f9;
-  --text: #111;
+  --bg: #f2f2f7;
+  --text: #1c1c1e;
   --font: -apple-system, BlinkMacSystemFont, "Helvetica Neue", sans-serif;
   --correct: #34c759;
   --present: #ffcc00;
   --absent: #d1d1d6;
+  --primary: #007aff;
+  --modal-bg: rgba(0, 0, 0, 0.4);
 }
 
 body {
   margin: 0;
-  background: var(--bg);
+  background: url('magenta-nature-fantasy-landscape.jpg')
+    no-repeat center center fixed;
+  background-size: cover;
   font-family: var(--font);
   color: var(--text);
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.6;
 }
 
-.wordle-container {
-  text-align: center;
-  max-width: 400px;
-  margin: 2rem auto;
-  padding: 1rem;
-}
-
-#wordle-board div {
+.header {
   display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.app-title {
+  font-size: 1.75rem;
+  font-weight: 600;
+  margin: 0;
+}
+
+.circle-button {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--primary);
+  color: white;
+  font-size: 1.25rem;
+  border: none;
+  cursor: pointer;
+}
+
+#wordle-board {
+  display: grid;
+  grid-template-rows: repeat(5, 1fr);
+  gap: 12px;
+}
+
+.wordle-row {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 8px;
   justify-content: center;
-  margin-bottom: 10px;
 }
 
 .letter-box {
-  border: 1px solid #ccc;
-  padding: 10px;
-  margin: 2px;
-  width: 50px;
-  height: 50px;
-  font-size: 24px;
+  width: 60px;
+  height: 60px;
+  border: 2px solid #ccc;
+  font-size: 1.5rem;
   text-transform: uppercase;
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 12px;
+  background: white;
+  transition: transform 0.2s ease, background-color 0.3s ease;
 }
 
 .correct { background-color: var(--correct); color: white; }
-.present { background-color: var(--present); color: white; }
-.absent  { background-color: var(--absent); color: white; }
+.present { background-color: var(--present); color: black; }
+.absent  { background-color: var(--absent); color: black; }
 
-.input-controls {
-  margin-top: 1rem;
+.letter-box.pop {
+  animation: pop 0.12s ease-out;
 }
 
-#wordle-input {
-  padding: 0.5rem;
-  font-size: 18px;
-  border-radius: 8px;
-  border: 1px solid #ccc;
-  width: 160px;
-  text-align: center;
+.letter-box.shake {
+  animation: shake 0.3s ease-in-out;
 }
 
-.btn {
-  margin-left: 0.5rem;
-  padding: 0.5rem 1rem;
-  font-size: 16px;
-  background: #007aff;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
+@keyframes pop {
+  0% { transform: scale(0.92); }
+  100% { transform: scale(1); }
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-4px); }
+  75% { transform: translateX(4px); }
 }
 
 .keyboard {
-  display: grid;
-  grid-template-columns: repeat(10, 1fr);
-  gap: 5px;
-  margin: 1rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  justify-content: center;
+  align-items: center;
+  margin-top: 1rem;
 }
 
-.keyboard button {
-  padding: 10px;
-  font-size: 14px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
+.keyboard-row {
+  display: flex;
+  justify-content: center;
+  gap: 6px;
+}
+
+.keyboard-row button {
+  font-size: 1rem;
+  padding: 0.75rem 0.5rem;
+  border: none;
+  border-radius: 10px;
   background: white;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+  min-width: 42px;
+  text-transform: uppercase;
+}
+
+.keyboard-row button.wide-key {
+  min-width: 64px;
+  flex: 1.25;
+}
+
+.keyboard-row button.correct {
+  background-color: var(--correct);
+  color: white;
+}
+
+.keyboard-row button.present {
+  background-color: var(--present);
+  color: black;
+}
+
+.keyboard-row button.absent {
+  background-color: var(--absent);
+  color: white;
+}
+
+
+.btn {
+  padding: 0.5rem 1rem;
+  border-radius: 12px;
+  font-size: 1rem;
+  background-color: #e5e5ea;
+  border: none;
   cursor: pointer;
 }
 
+.btn.primary {
+  background-color: var(--primary);
+  color: white;
+}
+
+button#how-to-play-btn {
+  border: none;
+  background: none;
+  font-size: 1rem;
+  color: var(--primary);
+  cursor: pointer;
+  padding: 0.5rem;
+}
+
+.modal {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--modal-bg);
+  z-index: 999;
+}
+
+.modal.hidden {
+  display: none;
+}
+
+.modal-content {
+  background: white;
+  border-radius: 20px;
+  padding: 2rem;
+  max-width: 320px;
+  box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+  text-align: left;
+}
+
+.modal-title {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  font-weight: 600;
+}
+
 .leaderboard {
-  margin-top: 2rem;
+  text-align: left;
 }
 
 .leaderboard ol {
   padding-left: 1rem;
-  text-align: left;
+  margin: 0;
+}
+
+/* Liquid glass effect */
+.wordle-container {
+  padding: 4rem;
+  max-width: 420px;
+  margin: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-top: 30px;
+
+  /* Liquid glass effect */
+  background: linear-gradient(
+    135deg,
+    rgba(255, 255, 255, 0.3),
+    rgba(255, 255, 255, 0.1)
+  );
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 24px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
 }
