@@ -8,21 +8,34 @@
 </head>
 <body>
   <main class="wordle-container">
-    <h1 class="app-title">Wordle</h1>
+    <header class="header">
+      <h1 class="app-title">Wordle</h1>
+      <button id="how-to-play-btn" title="How to Play">?</button>
+    </header>
+
     <div id="wordle-board" aria-label="Game board"></div>
 
     <div id="virtual-keyboard" class="keyboard" aria-label="Virtual Keyboard"></div>
 
-    <div class="input-controls">
-      <input type="text" id="wordle-input" maxlength="5" autocomplete="off" placeholder="Type your guess..." />
-      <button id="wordle-submit" class="btn">Guess</button>
-    </div>
-
-    <section class="leaderboard">
+    <button id="show-leaderboard" class="btn">Leaderboard</button>
+    <section class="leaderboard" id="leaderboard-section">
       <h2>Leaderboard</h2>
       <ol id="leaderboard-list"></ol>
     </section>
   </main>
+
+  <div id="how-to-play-modal" class="modal hidden">
+    <div class="modal-content">
+      <h2>How to Play</h2>
+      <p>Guess the <strong>5-letter word</strong> in 5 tries.</p>
+      <ul>
+        <li><span class="correct">Green</span> = Correct letter, correct spot</li>
+        <li><span class="present">Yellow</span> = Letter in the word, wrong spot</li>
+        <li><span class="absent">Gray</span> = Not in the word</li>
+      </ul>
+      <button id="close-modal" class="btn">Got it!</button>
+    </div>
+  </div>
 
   <script src="game.js"></script>
 </body>
